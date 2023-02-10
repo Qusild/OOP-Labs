@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MyMath;
 using number = System.Double;
 
+
 namespace consoleApp
 {
     public class application

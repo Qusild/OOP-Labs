@@ -2,6 +2,7 @@
 using MyMath;
 using consoleApp;
 
+
 namespace OOPLab1
 {
     class Program

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using number = System.Double;
 
+
 namespace MyMath
 {
     public class SquareMatrix
