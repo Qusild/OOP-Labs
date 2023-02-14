@@ -15,7 +15,6 @@ namespace consoleApp
             {
                 Console.WriteLine("     Матричный калькулятор V1.0     ");
                 Console.WriteLine("------------------------------------");
-                Console.WriteLine("|1. Напечатать Матрицу             |");
                 Console.WriteLine("|1. Изменить Матрицу               |");
                 Console.WriteLine("|2. Транспонировать Матрицу        |");
                 Console.WriteLine("|3. Найти Определитель Матрицы     |");
