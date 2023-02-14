@@ -29,6 +29,7 @@ namespace MyMath
             {
                 this.size = size;
                 this.rank = -1;
+                this.determinant = Double.MinValue;
                 this.Matrix = new number[size][];
                 for (int i = 0; i < size; i++)
                 {
@@ -41,12 +42,13 @@ namespace MyMath
                 this.size = size;
                 this.Matrix = Matrix;
                 this.rank = -1;
+                this.determinant = Double.MinValue;
             }
         }
 
         public void SetMatrix(int size, List<List<number>> Matrix)
         {
-            if ((size == Matrix.Count) &&(size!=0)&& (size == Matrix[0].Count))
+            if ((size == Matrix.Count) && (size != 0) && (size == Matrix[0].Count))
             {
                 number[][] tmpMatrix = Matrix.Select(x => x.ToArray()).ToArray();
                 MatrixConstructor(size, tmpMatrix);
@@ -69,7 +71,7 @@ namespace MyMath
             {
                 for (int j = 0; j < size; j++)
                 {
-                    Result[j][ i] = Matrix[i][ j];
+                    Result[j][i] = Matrix[i][j];
                 }
             }
             Matrix = Result;
@@ -103,6 +105,8 @@ namespace MyMath
 
         public number GetDeterminant()
         {
+            if (determinant != Double.MinValue)
+                return determinant;
             if (size == 1)
             {
                 if (Matrix[0][0] != 0)
@@ -118,7 +122,7 @@ namespace MyMath
                 {
                     List<number> submatrixRow = new List<number>();
                     for (int k = 0; k < size; k++)
-                        if (k != i) submatrixRow.Add(Matrix[j][ k]);
+                        if (k != i) submatrixRow.Add(Matrix[j][k]);
                     submatrix.Add(submatrixRow);
                 }
                 ans += SubmatrixDeterminant(submatrix) * (i % 2 == 0 ? Matrix[0][i] : -Matrix[0][i]);
@@ -127,7 +131,8 @@ namespace MyMath
                 rank = size;
             else if (rank == -1)
                 rank = 0;
-            return ans;
+            determinant = ans;
+            return determinant;
         }
         public void PrintMatrix()
         {
@@ -148,5 +153,6 @@ namespace MyMath
         private number[][] Matrix;
         private int size;
         private int rank;
+        private number determinant;
     }
 }
