@@ -42,13 +42,9 @@ namespace consoleApp
                             }
                             matrix.SetMatrix(size, tmp);
                             Console.Clear();
-                            Console.WriteLine("Матрица изменена, новая матрица:");
-                            matrix.PrintMatrix();
                             break;
                         case 2:
                             matrix.Transposition();
-                            Console.WriteLine("Матрица Транспонирована, новая матрица:");
-                            matrix.PrintMatrix();
                             break;
                         case 3:
                             Console.WriteLine($"Определитель матрицы = {matrix.GetDeterminant()}");
