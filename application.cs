@@ -10,29 +10,25 @@ namespace consoleApp
     {
         public void SetConsoleApp()
         {
+            int pick = 0;
             while (true)
             {
                 Console.WriteLine("     Матричный калькулятор V1.0     ");
-
                 Console.WriteLine("------------------------------------");
                 Console.WriteLine("|1. Напечатать Матрицу             |");
-                Console.WriteLine("|2. Изменить Матрицу               |");
-                Console.WriteLine("|3. Транспонировать Матрицу        |");
-                Console.WriteLine("|4. Найти Определитель Матрицы     |");
-                Console.WriteLine("|5. Найти Ранг Матрицы             |");
-                Console.WriteLine("|6. Выход                          |");
+                Console.WriteLine("|1. Изменить Матрицу               |");
+                Console.WriteLine("|2. Транспонировать Матрицу        |");
+                Console.WriteLine("|3. Найти Определитель Матрицы     |");
+                Console.WriteLine("|4. Найти Ранг Матрицы             |");
+                Console.WriteLine("|5. Выход                          |");
                 Console.WriteLine("------------------------------------");
+                Console.WriteLine("Текущая матрица:");
+                matrix.PrintMatrix();
                 pick = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
-                if ((pick > 0) && (pick < 7))
-                {
                     switch (pick)
                     {
                         case 1:
-                            Console.WriteLine("Текущая матрица:");
-                            matrix.PrintMatrix();
-                            break;
-                        case 2:
                             Console.WriteLine("Введите размер новой матрицы");
                             int size = Convert.ToInt32(Console.ReadLine());
                             List<List<number>> tmp = new List<List<number>>();
@@ -50,26 +46,25 @@ namespace consoleApp
                             Console.WriteLine("Матрица изменена, новая матрица:");
                             matrix.PrintMatrix();
                             break;
-                        case 3:
+                        case 2:
                             matrix.Transposition();
                             Console.WriteLine("Матрица Транспонирована, новая матрица:");
                             matrix.PrintMatrix();
                             break;
-                        case 4:
+                        case 3:
                             Console.WriteLine($"Определитель матрицы = {matrix.GetDeterminant()}");
                             break;
-                        case 5:
+                        case 4:
                             Console.WriteLine($"Ранг матрицы = {matrix.GetRank()}");
                             break;
-                        case 6:
+                        case 5:
                             return;
+                        default:
+                            Console.WriteLine(" ОШИБКА: ВЫБРАН НЕВЕРНЫЙ ПУНКТ МЕНЮ ");
+                            break;
                     }
-                }
-                else Console.WriteLine(" ОШИБКА: ВЫБРАН НЕВЕРНЫЙ ПУНКТ МЕНЮ ");
             }
         }
-
-        private int pick;
         private SquareMatrix matrix = new SquareMatrix();
     }
 }
