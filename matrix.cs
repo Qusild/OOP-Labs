@@ -114,7 +114,6 @@ namespace MyMath
                 else rank = 0;
                 return Matrix[0][0];
             }
-            number ans = 0;
             for (int i = 0; i < size; i++)
             {
                 List<List<number>> submatrix = new List<List<number>>();
@@ -125,13 +124,14 @@ namespace MyMath
                         if (k != i) submatrixRow.Add(Matrix[j][k]);
                     submatrix.Add(submatrixRow);
                 }
-                ans += SubmatrixDeterminant(submatrix) * (i % 2 == 0 ? Matrix[0][i] : -Matrix[0][i]);
+                determinant += SubmatrixDeterminant(submatrix) * (i % 2 == 0 ? Matrix[0][i] : -Matrix[0][i]);
             }
-            if (ans != 0)
+            if (determinant == Double.MinValue)
+                determinant = 0;
+            if (determinant != 0)
                 rank = size;
             else if (rank == -1)
                 rank = 0;
-            determinant = ans;
             return determinant;
         }
         public void PrintMatrix()
