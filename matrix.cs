@@ -107,6 +107,7 @@ namespace MyMath
         {
             if (determinant != Double.MinValue)
                 return determinant;
+            determinant = 0;
             if (size == 1)
             {
                 if (Matrix[0][0] != 0)
@@ -125,9 +126,9 @@ namespace MyMath
                     submatrix.Add(submatrixRow);
                 }
                 determinant += SubmatrixDeterminant(submatrix) * (i % 2 == 0 ? Matrix[0][i] : -Matrix[0][i]);
+
             }
-            if (determinant == Double.MinValue)
-                determinant = 0;
+            determinant = Math.Round(determinant, 12, MidpointRounding.AwayFromZero);
             if (determinant != 0)
                 rank = size;
             else if (rank == -1)
