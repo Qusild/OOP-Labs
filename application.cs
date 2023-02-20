@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MyMath;
-using number = System.Double;
+using number = Complex;
 
 
 namespace consoleApp
