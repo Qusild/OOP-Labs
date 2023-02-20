@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using MyMath;
 using number = MyNumber.Complex;
-
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace consoleApp
 {
@@ -31,46 +32,64 @@ namespace consoleApp
                         Console.WriteLine("Введите размер новой матрицы");
                         int size = Convert.ToInt32(Console.ReadLine());
                         List<List<number>> tmp = new List<List<number>>();
+                        Regex[] complexForms = new Regex[6] { new Regex(@"-\d+,?\d*-\d+,?\d*i"),//-xxx-yyyi 
+                                                              new Regex(@"-\d+,?\d*[+]\d+,?\d*i"),//-xxx+yyyi 
+                                                              new Regex(@"\d+,?\d*[+]\d+,?\d*i"), // xxx+yyyi
+                                                              new Regex(@"\d+,?\d*-\d+,?\d*i"), // xxx-yyyi
+                                                              new Regex(@"\d*,?\d*i"),          //yyyi or -yyyi
+                                                              new Regex(@"\d*,?\d*")};          //xxx or -xxx
+
                         for (int i = 0; i < size; i++)
                         {
                             tmp.Add(new List<number>());
                             Console.WriteLine($"Введите {i + 1}-ую строку матрицы (через пробел)");
                             foreach (var element in Console.ReadLine().Split(" "))
                             {
-                                string[] input = element.Split('+');
-                                if (input.Length == 1)
+                                string[] tmpInput;
+                                int formVar = 0;
+                                for (int j = 0;j<complexForms.Length;j++)
                                 {
-                                    //если просто одно число
-                                    if (!input[0].Contains("-"))
+                                    if (complexForms[j].Matches(element).Count>0)
                                     {
-                                        //если только мнимая часть
-                                        if (input[0].Contains("i"))
-                                            tmp[i].Add(new number(0, Convert.ToDouble(input[0].Substring(0, input[0].Length - 1))));
-                                        else tmp[i].Add(new number(Convert.ToDouble(input[0]), 0));
-                                    }
-                                    //если -x-yi
-                                    else if ((input[0][0] == '-') && (input[0].Substring(1).Contains("-")))
-                                    {
-                                        input = input[0].Substring(1).Split("-");
-                                        tmp[i].Add(new number(-Convert.ToDouble(input[0]), -
-                                                              Convert.ToDouble(input[1].Substring(0, input[1].Length - 1))));
-                                    }
-                                    //если -yi
-                                    else if ((input[0][0] == '-' ) && (!input[0].Substring(1).Contains("-")))
-                                    {
-                                        tmp[i].Add(new number(0, Convert.ToDouble(input[0].Substring(0, input[0].Length - 1))));
-                                    }
-                                    //если х-уi
-                                    else
-                                    {
-                                        input = input[0].Split("-");
-                                        tmp[i].Add(new number(Convert.ToDouble(input[0]),
-                                                              -Convert.ToDouble(input[1].Substring(0, input[1].Length - 1))));
+                                        formVar = j;
+                                        break;
                                     }
                                 }
-                                //если x+yi
-                                else tmp[i].Add(new number(Convert.ToDouble(input[0]),
-                                                           Convert.ToDouble(input[1].Substring(0, input[1].Length-1))));
+                                switch (formVar) 
+                                {
+                                    //-xxx-yyyi
+                                    case 0:
+                                        tmpInput = element.Substring(1).Split("-");
+                                        tmp[i].Add(new number(-Convert.ToDouble(tmpInput[0]), -
+                                                              Convert.ToDouble(tmpInput[1].Substring(0, tmpInput[1].Length - 1))));
+                                        break;
+                                    //-xxx+yyyi
+                                    case 1:
+                                        tmpInput = element.Split("+");
+                                        tmp[i].Add(new number(Convert.ToDouble(tmpInput[0]),
+                                                              Convert.ToDouble(tmpInput[1].Substring(0, tmpInput[1].Length - 1))));
+                                        break;
+                                    //xxx+yyyi
+                                    case 2:
+                                        tmpInput = element.Split("+");
+                                        tmp[i].Add(new number(Convert.ToDouble(tmpInput[0]),
+                                                              Convert.ToDouble(tmpInput[1].Substring(0, tmpInput[1].Length - 1))));
+                                        break;
+                                    //xxx-yyyi
+                                    case 3:
+                                        tmpInput = element.Split("-");
+                                        tmp[i].Add(new number(Convert.ToDouble(tmpInput[0]),
+                                                                  -Convert.ToDouble(tmpInput[1].Substring(0, tmpInput[1].Length - 1))));
+                                        break;
+                                    //yyyi or -yyyi
+                                    case 4:
+                                        tmp[i].Add(new number(0, Convert.ToDouble(element.Substring(0, element.Length - 1))));
+                                        break;
+                                    //xxx or -xxx
+                                    case 5:
+                                        tmp[i].Add(new number(Convert.ToDouble(element), 0));
+                                        break;
+                                }
                             }
                         }
                         matrix.SetMatrix(size, tmp);
