@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using number = System.Double;
+using number = Complex;
 
 
 namespace MyMath
