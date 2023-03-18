@@ -27,6 +27,7 @@ namespace OOPLab3
             }
             else SizeScroller.Value = 0;
         }
+
         private void setMatrixView()
         {
             LayoutBox.SetBounds(12, 12, matrix.GetSize() * 50, matrix.GetSize() * 100);
