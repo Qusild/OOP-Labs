@@ -23,6 +23,7 @@ namespace OOPLab4
 
                 }
             }
+            communicator = new Communicator();
             //sendMsg("Init", size, matrix);
             setMatrixView();
         }
@@ -86,16 +87,18 @@ namespace OOPLab4
                 tcpClient.Close();
             }
         }
-        private void ExitButton_Click(object sender, EventArgs e)
+        public void ExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private async void SizeScroller_ValueChanged(object sender, EventArgs e)
+        public async void SizeScroller_ValueChanged(object sender, EventArgs e)
         {
             if (SizeScroller.Value > 0)
             {
-                await sendMsg("changeSize", (int)SizeScroller.Value, matrix);
+                await communicator.sendMsg("changeSize", (int)SizeScroller.Value, matrix);
+                this.matrix = communicator.GetMatrix();
+                this.size = communicator.GetSize();
                 setMatrixView();
             }
             else SizeScroller.Value = 0;
@@ -131,17 +134,19 @@ namespace OOPLab4
             }
         }
 
-        private async void TranspositionButton_Click(object sender, EventArgs e)
+        public async void TranspositionButton_Click(object sender, EventArgs e)
         {
             setMatrixFromView();
-            await sendMsg("Transposition", size, matrix);
+            await communicator.sendMsg("Transposition", size, matrix);
+            this.matrix = communicator.GetMatrix();
             setMatrixView();
         }
 
-        private async void DeterminantButton_Click(object sender, EventArgs e)
+        public async void DeterminantButton_Click(object sender, EventArgs e)
         {
             setMatrixFromView();
-            await sendMsg("Determinant", size, matrix);
+            await communicator.sendMsg("Determinant", size, matrix);
+            this.determinant = communicator.GetDeterminant();
             if ((determinant.Item1 < 0) || (determinant.Item2 < 0))
                 MessageBox.Show($"  {Math.Abs(determinant.Item1)}" +
                 $"\n- _____\n" +
@@ -151,10 +156,11 @@ namespace OOPLab4
                 $"{determinant.Item2}");
         }
 
-        private async void RankButton_Click(object sender, EventArgs e)
+        public async void RankButton_Click(object sender, EventArgs e)
         {
             setMatrixFromView();
-            await sendMsg("Rank", size, matrix);
+            await communicator.sendMsg("Rank", size, matrix);
+            this.rank = communicator.GetRank(); 
             MessageBox.Show(rank.ToString());
         }
 
@@ -163,6 +169,7 @@ namespace OOPLab4
         private int size;
         private int rank;
         private (int, int) determinant;
+        private Communicator communicator;
         private void ClientApp_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();

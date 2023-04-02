@@ -20,8 +20,6 @@ namespace OOPLab4
     {
         public delegate void AddText(TcpClient tcp);
         public AddText myDelegate;
-        private IPAddress localAddress = IPAddress.Parse("127.0.0.1");
-        private TcpListener tcpListener;
         private SquareMatrix squareMatrix;
         Thread myThread;
 
@@ -128,7 +126,6 @@ namespace OOPLab4
         private void ServerApp_Load(object sender, EventArgs e)
         {
             ClientApp client = new ClientApp();
-            this.Hide();
             client.Show();
         }
 
