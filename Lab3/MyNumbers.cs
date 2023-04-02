@@ -80,36 +80,51 @@ namespace MyNumber
             denumerator = d;
         }
 
-        public void Swap()
+        //public void Swap()
+        //{
+        //    //int tmp;
+        //    //tmp = numerator;
+        //    //numerator = denumerator;
+        //    //denumerator = tmp;
+        //    (numerator, denumerator) = (denumerator, numerator);
+        //}
+        private void GCD()
         {
-            int tmp;
-            tmp = numerator;
-            numerator = denumerator;
-            denumerator = tmp;
-        }
-        private void NOK()
-        {
-            int tmp = this.numerator > this.denumerator ? this.numerator : this.denumerator;
-            List<int> ints = new List<int>();
-            for (int i = 1; i < Math.Sqrt(tmp); i++)
+            //int tmp = this.numerator > this.denumerator ? this.numerator : this.denumerator;
+            //List<int> ints = new List<int>();
+            //for (int i = 1; i < Math.Sqrt(tmp); i++)
+            //{
+            //    if (tmp % i == 0)
+            //    {
+            //        ints.Add(i);
+            //        if (tmp % i != i)
+            //            ints.Add(tmp / i);
+            //    }
+            //}
+            //foreach (int divider in ints)
+            //{
+            //    if ((this.numerator % divider == 0) && (this.denumerator % divider == 0))
+            //    {
+            //        this.numerator = this.numerator / divider;
+            //        this.denumerator = this.denumerator / divider;
+            //    }
+            //}
+
+            int a = Math.Max(numerator, denumerator), b = Math.Min(numerator, denumerator);
+
+            while (b != 0)
             {
-                if (tmp % i == 0)
-                {
-                    ints.Add(i);
-                    if (tmp % i != i)
-                        ints.Add(tmp / i);
-                }
+                int temp = Math.Abs(b);
+                b = a % b;
+                a = temp;
             }
-            foreach (int divider in ints)
-            {
-                if ((this.numerator%divider == 0)&& (this.denumerator % divider == 0))
-                {
-                    this.numerator = this.numerator/divider;
-                    this.denumerator = this.denumerator/divider; 
-                }
-            }
+
+            this.numerator /= a;
+            this.denumerator /= a;
+
             this.zeroCheck();
         }
+
         private void zeroCheck()
         {
             if ((denumerator == numerator) && (denumerator == 0))
@@ -120,7 +135,7 @@ namespace MyNumber
             Rational temp = new Rational();
             temp.numerator = -r.numerator;
             temp.denumerator = r.denumerator;
-            temp.NOK();
+            temp.GCD();
             return temp;
         }
         public static Rational operator +(Rational r1, Rational r2)
@@ -128,7 +143,7 @@ namespace MyNumber
             Rational temp = new Rational();
             temp.numerator = r1.numerator * r2.denumerator + r2.numerator * r1.denumerator;
             temp.denumerator = r1.denumerator * r2.denumerator;
-            temp.NOK();
+            temp.GCD();
             return temp;
         }
         public static Rational operator -(Rational r1, Rational r2)
@@ -136,7 +151,7 @@ namespace MyNumber
             Rational temp = new Rational();
             temp.numerator = r1.numerator*r2.denumerator - r2.numerator*r1.denumerator;
             temp.denumerator = r1.denumerator * r2.denumerator;
-            temp.NOK();
+            temp.GCD();
             return temp;
         }
         public static Rational operator *(Rational r1, Rational r2)
@@ -144,7 +159,7 @@ namespace MyNumber
             Rational temp = new Rational();
             temp.numerator = r1.numerator * r2.numerator;
             temp.denumerator = r1.denumerator * r2.denumerator;
-            temp.NOK();
+            temp.GCD();
             return temp;
         }
         public static Rational operator /(Rational r1, Rational r2)
@@ -153,16 +168,16 @@ namespace MyNumber
             temp.numerator = r1.numerator * r2.denumerator;
             if (r2.numerator!= 0)
                 temp.denumerator = r1.denumerator * r2.numerator;
-            temp.NOK();
+            temp.GCD();
             return temp;
         }
         public static bool operator ==(Rational r, double d)
         {
-            return (r.numerator/r.denumerator == d);
+            return (r.numerator == r.denumerator * d);
         }
         public static bool operator !=(Rational r, double d)
         {
-            return (r.numerator/r.denumerator != d);
+            return (r.numerator != r.denumerator * d);
         }
         public int getNumerator() { return numerator; }
         public int getDenumerator() { return denumerator; }
