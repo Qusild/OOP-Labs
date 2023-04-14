@@ -44,7 +44,7 @@ namespace OOPLab5
             StringBuilder ans = new StringBuilder();
             switch (NumberType)
             {
-                case "Рациональные":
+                case "Rational":
                     SquareMatrix<Rational> squareMatrixRat = new SquareMatrix<Rational>(Convert.ToInt32(matrixSize));
                     //List<List<Rational>> tmpRat = new List<List<Rational>>();
                     for (int i = 0; i < squareMatrixRat.GetSize(); i++)
@@ -86,7 +86,7 @@ namespace OOPLab5
                     ans.Append((squareMatrixRat.GetDeterminant()).getDenumerator().ToString());
                     ans.Append(' ');
                     break;
-                case "Комплексные":
+                case "Complex":
                     SquareMatrix<Complex> squareMatrixCom = new SquareMatrix<Complex>(Convert.ToInt32(matrixSize));
                     //List<List<Complex>> tmpCom = new List<List<Complex>>();
                     for (int i = 0; i < squareMatrixCom.GetSize(); i++)
@@ -127,7 +127,7 @@ namespace OOPLab5
                     ans.Append((squareMatrixCom.GetDeterminant()).getIm().ToString());
                     ans.Append(' ');
                     break;
-                case "Вещественные":
+                case "Double":
                     SquareMatrix<MyNumbers.Double> squareMatrixDb = new SquareMatrix<MyNumbers.Double>(Convert.ToInt32(matrixSize));
                     for (int i = 0; i < squareMatrixDb.GetSize(); i++)
                     {

@@ -109,14 +109,14 @@
             // 
             this.NumberTypePicker.FormattingEnabled = true;
             this.NumberTypePicker.Items.AddRange(new object[] {
-            "Вещественные",
-            "Рациональные",
-            "Комплексные"});
+            "Double",
+            "Rational",
+            "Complex"});
             this.NumberTypePicker.Location = new System.Drawing.Point(641, 38);
             this.NumberTypePicker.Name = "NumberTypePicker";
             this.NumberTypePicker.Size = new System.Drawing.Size(147, 28);
             this.NumberTypePicker.TabIndex = 6;
-            this.NumberTypePicker.Text = "Рациональные";
+            this.NumberTypePicker.Text = "Rational";
             this.NumberTypePicker.SelectedIndexChanged += new System.EventHandler(this.NumberTypePicker_SelectedIndexChanged);
             // 
             // ClientApp

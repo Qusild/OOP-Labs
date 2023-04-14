@@ -108,13 +108,13 @@ namespace OOPLab5
             int sizeX = 0,sizeY = 0;
             switch (NumberType)
             {
-                case "Рациональные":
+                case "Rational":
                     sizeX = 50; sizeY = 100;
                     break;
-                case "Комплексные":
+                case "Complex":
                     sizeX = 140; sizeY = 40;
                     break;
-                case "Вещественные":
+                case "Double":
                     sizeX = 60; sizeY = 40;
                     break;
             }
@@ -127,13 +127,13 @@ namespace OOPLab5
                     Control tmp=null;
                     switch (NumberType)
                     {
-                        case "Рациональные":
+                        case "Rational":
                             tmp = new matrixNum((int)matrix[i][j].Item1, (int)matrix[i][j].Item2);
                             break;
-                        case "Комплексные":
+                        case "Complex":
                             tmp = new MatrixNumComp(matrix[i][j].Item1, matrix[i][j].Item2);
                             break;
-                        case "Вещественные":
+                        case "Double":
                             tmp = new MatrixNumDouble(matrix[i][j].Item1);
                             break;
                     }
@@ -152,7 +152,7 @@ namespace OOPLab5
                 {
                     switch (NumberType)
                     {
-                        case "Рациональные":
+                        case "Rational":
                             if (Convert.ToInt32(LayoutBox.Controls[i * matrix.Count() + j].Controls[0].Text) != 0)
                             {
                                 matrix[i][j] = (Convert.ToInt32(LayoutBox.Controls[i * matrix.Count() + j].Controls[2].Text),
@@ -160,11 +160,11 @@ namespace OOPLab5
                             }
                             else matrix[i][j] = (Convert.ToInt32(LayoutBox.Controls[i * matrix.Count() + j].Controls[2].Text), 1);
                             break;
-                        case "Комплексные": //Controls[3] - real Controls[1] - imaginary
+                        case "Complex": //Controls[3] - real Controls[1] - imaginary
                             matrix[i][j] = (Convert.ToDouble(LayoutBox.Controls[i * matrix.Count() + j].Controls[3].Text),
                                             Convert.ToDouble(LayoutBox.Controls[i * matrix.Count() + j].Controls[1].Text));
                             break;
-                        case "Вещественные": //Controls[1] - Double
+                        case "Double": //Controls[1] - Double
                             matrix[i][j] = (Convert.ToDouble(LayoutBox.Controls[i * matrix.Count() + j].Controls[1].Text),0);
                             break;
 
@@ -190,13 +190,13 @@ namespace OOPLab5
             string[] tmpAns = determinant.ToString().Split(", ");
             switch(NumberType)
             {
-                case "Рациональные":
+                case "Rational":
                     MessageBox.Show(new Rational(Convert.ToInt32(tmpAns[0].Substring(1)), Convert.ToInt32(tmpAns[1].Substring(0,tmpAns.Length-1))).ToString());
                     break;
-                case "Комплексные": //Controls[3] - real Controls[1] - imaginary
+                case "Complex": //Controls[3] - real Controls[1] - imaginary
                     MessageBox.Show(new Complex(Convert.ToDouble(tmpAns[0].Substring(1)), Convert.ToDouble(tmpAns[1].Substring(0, tmpAns.Length - 1))).ToString());
                     break;
-                case "Вещественные": //Controls[1] - Double
+                case "Double": //Controls[1] - Double
                     MessageBox.Show(new MyNumbers.Double(Convert.ToDouble(tmpAns[0].Substring(1))).ToString());
                     break;
             }
@@ -227,6 +227,6 @@ namespace OOPLab5
             NumberType = NumberTypePicker.Text;
             setMatrixView();
         }
-        private String NumberType = "Рациональные";
+        private String NumberType = "Rational";
     }
 }
